@@ -1,4 +1,4 @@
-# user_behavior_server_scala
+# User Behavior Server(Consumer)
 A practice with https://www.ibm.com/developerworks/cn/opensource/os-cn-spark-practice2/
 
 ### Build the SBT project:
@@ -11,5 +11,5 @@ Step 2: Run the sbt project:
     sbt
     > run
 
-### The client
+### The Client(Producer)
 https://github.com/backslash112/user_behavior_client_scala
