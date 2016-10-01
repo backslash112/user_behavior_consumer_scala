@@ -1,5 +1,5 @@
-// val derby = "org.apache.derby" % "derby" % "10.4.1.3"
-val kafka_clients = "org.apache.kafka" % "kafka-clients" % "0.10.0.0"
+val spark_streaming_kafka = "org.apache.spark" % "spark-streaming-kafka-0-8_2.11" % "2.0.0"
+val spark_core = "org.apache.spark" %% "spark-core" % "2.0.0"
 
 lazy val commonSettings = Seq(
   organization := "com.yangcun",
@@ -11,6 +11,6 @@ lazy val root = (project in file(".")).
   settings(commonSettings: _*).
   settings(
     name := "user_behavior_server",
-    // libraryDependencies += derby,
-    libraryDependencies += kafka_clients
+    libraryDependencies += spark_streaming_kafka,
+    libraryDependencies += spark_core
   )
