@@ -1,5 +1,5 @@
 val spark_streaming_kafka = "org.apache.spark" % "spark-streaming-kafka-0-8_2.11" % "2.0.0"
-var spark_streaming = "org.apache.spark" % "spark-streaming_2.11" % "2.0.0"
+val spark_streaming = "org.apache.spark" % "spark-streaming_2.11" % "2.0.0"
 val spark_core = "org.apache.spark" %% "spark-core" % "2.0.0"
 
 lazy val commonSettings = Seq(
