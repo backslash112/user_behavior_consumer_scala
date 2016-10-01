@@ -25,7 +25,7 @@ object WebPagePopularityValueCalculator {
 
 		// Kafka Stream
 		// returns: DStream of (Kafka message key, Kafka message value)
-		val kafkaStream: DStream = KafkaUtils.createStream(ssc, zkServers, msgConsumerGroup,
+		val kafkaStream = KafkaUtils.createStream(ssc, zkServers, msgConsumerGroup,
 			Map("user-behavior-topic" -> 3))
 		// msg data RDD
 		// Dstream.map: Return a new DStream by applying a function to all elements of this DStream
