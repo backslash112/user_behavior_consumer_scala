@@ -1,4 +1,5 @@
 val spark_streaming_kafka = "org.apache.spark" % "spark-streaming-kafka-0-8_2.11" % "2.0.0"
+var spark_streaming = "org.apache.spark" % "spark-streaming_2.11" % "2.0.0"
 val spark_core = "org.apache.spark" %% "spark-core" % "2.0.0"
 
 lazy val commonSettings = Seq(
@@ -12,5 +13,6 @@ lazy val root = (project in file(".")).
   settings(
     name := "user_behavior_server",
     libraryDependencies += spark_streaming_kafka,
+    libraryDependencies += spark_streaming,
     libraryDependencies += spark_core
   )
