@@ -4,6 +4,7 @@ import org.apache.spark.streaming.StreamingContext
 import org.apache.spark.streaming.kafka.KafkaUtils
 import org.apache.spark.HashPartitioner
 import org.apache.spark.streaming.Duration
+import org.apache.kafka.clients.consumer.{KafkaConsumer, ConsumerRecord}
 
 object WebPagePopularityValueCalculator {
 	private val checkpointDir = "popularity-data-checkpoint"
@@ -16,20 +17,69 @@ object WebPagePopularityValueCalculator {
 		}
 
 		// StreamingContext
-		val Array(zkServers, processingInterval) = args
-		val conf = new SparkConf().setAppName("Web Page Popularity Value Calculator")
-		val ssc = new StreamingContext(conf, Seconds(processingInterval.toInt))
+		// val Array(zkServers, processingInterval) = args
+		// val conf = new SparkConf().setAppName("Web Page Popularity Value Calculator")
+		//
+		// val ssc = new StreamingContext(conf, Seconds(processingInterval.toInt))
+
+
+		// Method 1: Get data from clients API
+		private val brokerList = brokers
+		private val targetTopic = topic
+		Properties props = new Properties();
+
+	    props.put("bootstrap.servers", this.brokers);
+	    // props.put("group.id", "test");
+	    props.put("enable.auto.commit", "true");
+	    props.put("auto.commit.interval.ms", "1000");
+	    props.put("session.timeout.ms", "30000");
+	    props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+	    props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+	    private val consumer = new KafkaConsumer<String, String>(this.props);
+
+		// Subscribe the topic
+		consumer.subscribe(Arrays.asList(this.topic));
+		while(true) {
+			var records = consumer.poll(100);
+			for (var record <- records) {
+				println("offset = %s, key = %s, value = %s", record.offset(), record.key(), record.value())
+			}
+		}
+
+		// Method 2: Get data from KafkaUtils
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		// using updateStateByKey asks for enabling checkpoint
-		ssc.checkpoint(checkpointDir)
+		// ssc.checkpoint(checkpointDir)
 
 		// Kafka Stream
 		// returns: DStream of (Kafka message key, Kafka message value)
-		val kafkaStream = KafkaUtils.createStream(ssc, zkServers, msgConsumerGroup,
-			Map("user-behavior-topic" -> 3))
+		// val kafkaStream = KafkaUtils.createStream(ssc, zkServers, msgConsumerGroup,
+			// Map("user-behavior-topic" -> 3))
 		// msg data RDD
 		// Dstream.map: Return a new DStream by applying a function to all elements of this DStream
-		val msgDataRDD = kafkaStream.map(_._2)
+		// val msgDataRDD = kafkaStream.map(_._2)
 		/*
 		// popularity data
 		val popularityData = msgDataRDD.map { msgLine => {
@@ -66,7 +116,7 @@ object WebPagePopularityValueCalculator {
 			 })
 		 }}
 		 */
-		 ssc.start()
-		 ssc.awaitTermination()
+		//  ssc.start()
+		//  ssc.awaitTermination()
 	}
 }
