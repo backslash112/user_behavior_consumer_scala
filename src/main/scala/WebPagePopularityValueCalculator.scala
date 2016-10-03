@@ -10,6 +10,20 @@ object WebPagePopularityValueCalculator {
 	private val checkpointDir = "popularity-data-checkpoint"
 	private val msgConsumerGroup = "user-behavior-topic-message-consumer-group"
 
+	// private val brokerList = brokers
+	// private val targetTopic = topic
+	Properties props = new Properties();
+
+	props.put("bootstrap.servers", "54.174.192.128:2181");
+	// props.put("group.id", "test");
+	props.put("enable.auto.commit", "true");
+	props.put("auto.commit.interval.ms", "1000");
+	props.put("session.timeout.ms", "30000");
+	props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+	props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+	private val consumer = new KafkaConsumer[String, String](this.props);
+	consumer.subscribe(Arrays.asList("user-behavior-topic"));
+
 	def main(args: Array[String]) {
 		// if(args.length < 2){
 		// 	println("Usage: WebPagePopularityValueCalculator zkserver1:2181, zkserver2:2181, zkserver3:2181 consumeMsgDataTimeInterval(secs)")
@@ -24,21 +38,9 @@ object WebPagePopularityValueCalculator {
 
 
 		// Method 1: Get data from clients API
-		// private val brokerList = brokers
-		// private val targetTopic = topic
-		Properties props = new Properties();
 
-	    props.put("bootstrap.servers", "54.174.192.128:2181");
-	    // props.put("group.id", "test");
-	    props.put("enable.auto.commit", "true");
-	    props.put("auto.commit.interval.ms", "1000");
-	    props.put("session.timeout.ms", "30000");
-	    props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-	    props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-	    val consumer = new KafkaConsumer<String, String>(this.props);
 
 		// Subscribe the topic
-		consumer.subscribe(Arrays.asList("user-behavior-topic"));
 		while(true) {
 			var records = consumer.poll(100);
 			for (var record <- records) {
