@@ -7,6 +7,7 @@ import org.apache.spark.streaming.Duration
 import org.apache.kafka.clients.consumer.{KafkaConsumer, ConsumerRecord}
 import java.util.Properties
 // import java.util.List
+import scala.collection.JavaConversions._
 
 object WebPagePopularityValueCalculator {
 	private val checkpointDir = "popularity-data-checkpoint"
@@ -45,7 +46,7 @@ object WebPagePopularityValueCalculator {
 		// Subscribe the topic
 		while(true) {
 			var records = consumer.poll(100);
-			for (record <- records) {
+			for (record <- records.asScala.toList.map(x => new String(x))) {
 				println("offset = %s, key = %s, value = %s", record.offset(), record.key(), record.value());
 			}
 		}
