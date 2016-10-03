@@ -46,7 +46,7 @@ object WebPagePopularityValueCalculator {
 		// Subscribe the topic
 		while(true) {
 			var records = consumer.poll(100);
-			for (record <- records.toList.foreach { x => new String(x) }) {
+			for (record <- records.asScala) {
 				println("offset = %s, key = %s, value = %s", record.offset(), record.key(), record.value());
 			}
 		}
