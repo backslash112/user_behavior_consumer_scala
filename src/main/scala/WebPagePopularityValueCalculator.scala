@@ -23,7 +23,7 @@ object WebPagePopularityValueCalculator {
 	props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 	props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 	private val consumer = new KafkaConsumer[String, String](this.props);
-	consumer.subscribe(Arrays.asList("user-behavior-topic"));
+	consumer.subscribe(List("user-behavior-topic"));
 
 	def main(args: Array[String]) {
 		// if(args.length < 2){
