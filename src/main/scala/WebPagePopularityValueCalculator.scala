@@ -6,7 +6,7 @@ import org.apache.spark.HashPartitioner
 import org.apache.spark.streaming.Duration
 import org.apache.kafka.clients.consumer.{KafkaConsumer, ConsumerRecord}
 import java.util.Properties
-import java.util.Collection
+import java.util.Collection[String]
 
 object WebPagePopularityValueCalculator {
 	private val checkpointDir = "popularity-data-checkpoint"
