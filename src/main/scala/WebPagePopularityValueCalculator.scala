@@ -6,7 +6,7 @@ import org.apache.spark.HashPartitioner
 import org.apache.spark.streaming.Duration
 import org.apache.kafka.clients.consumer.{KafkaConsumer, ConsumerRecord}
 import java.util.Properties
-import java.util.List
+// import java.util.List
 
 object WebPagePopularityValueCalculator {
 	private val checkpointDir = "popularity-data-checkpoint"
@@ -24,7 +24,7 @@ object WebPagePopularityValueCalculator {
 	props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 	props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 	private val consumer = new KafkaConsumer[String, String](this.props);
-	consumer.subscribe(List("user-behavior-topic"));
+	consumer.subscribe(java.util.Arrays.asList("user-behavior-topic"));
 
 	def main(args: Array[String]) {
 		// if(args.length < 2){
