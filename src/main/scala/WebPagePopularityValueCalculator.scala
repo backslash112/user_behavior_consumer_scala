@@ -44,7 +44,7 @@ object WebPagePopularityValueCalculator {
 		while(true) {
 			var records = consumer.poll(100);
 			for (var record <- records) {
-				println("offset = %s, key = %s, value = %s", record.offset(), record.key(), record.value())
+				println("offset = %s, key = %s, value = %s", record.offset(), record.key(), record.value());
 			}
 		}
 
