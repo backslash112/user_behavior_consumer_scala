@@ -11,10 +11,10 @@ object WebPagePopularityValueCalculator {
 	private val msgConsumerGroup = "user-behavior-topic-message-consumer-group"
 
 	def main(args: Array[String]) {
-		if(args.length < 2){
-			println("Usage: WebPagePopularityValueCalculator zkserver1:2181, zkserver2:2181, zkserver3:2181 consumeMsgDataTimeInterval(secs)")
-			System.exit(1)
-		}
+		// if(args.length < 2){
+		// 	println("Usage: WebPagePopularityValueCalculator zkserver1:2181, zkserver2:2181, zkserver3:2181 consumeMsgDataTimeInterval(secs)")
+		// 	System.exit(1)
+		// }
 
 		// StreamingContext
 		// val Array(zkServers, processingInterval) = args
@@ -24,11 +24,11 @@ object WebPagePopularityValueCalculator {
 
 
 		// Method 1: Get data from clients API
-		private val brokerList = brokers
-		private val targetTopic = topic
+		// private val brokerList = brokers
+		// private val targetTopic = topic
 		Properties props = new Properties();
 
-	    props.put("bootstrap.servers", this.brokers);
+	    props.put("bootstrap.servers", "54.174.192.128:2181");
 	    // props.put("group.id", "test");
 	    props.put("enable.auto.commit", "true");
 	    props.put("auto.commit.interval.ms", "1000");
@@ -38,7 +38,7 @@ object WebPagePopularityValueCalculator {
 	    private val consumer = new KafkaConsumer<String, String>(this.props);
 
 		// Subscribe the topic
-		consumer.subscribe(Arrays.asList(this.topic));
+		consumer.subscribe(Arrays.asList("user-behavior-topic"));
 		while(true) {
 			var records = consumer.poll(100);
 			for (var record <- records) {
