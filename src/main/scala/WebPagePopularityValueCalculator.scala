@@ -12,7 +12,7 @@ object WebPagePopularityValueCalculator {
 
 	// private val brokerList = brokers
 	// private val targetTopic = topic
-	Properties props = new Properties();
+	private val props = new Properties();
 
 	props.put("bootstrap.servers", "54.174.192.128:2181");
 	// props.put("group.id", "test");
