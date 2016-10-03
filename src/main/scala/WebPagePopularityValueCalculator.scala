@@ -35,7 +35,7 @@ object WebPagePopularityValueCalculator {
 	    props.put("session.timeout.ms", "30000");
 	    props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
 	    props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-	    private val consumer = new KafkaConsumer<String, String>(this.props);
+	    val consumer = new KafkaConsumer<String, String>(this.props);
 
 		// Subscribe the topic
 		consumer.subscribe(Arrays.asList("user-behavior-topic"));
